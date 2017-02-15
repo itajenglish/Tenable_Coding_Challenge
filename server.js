@@ -1,14 +1,27 @@
 const http = require('http');
-
-const hostname = '127.0.0.1';
-const port = 3000;
+const url = require('url').parse;
+const PORT = 3000;
 
 const server = http.createServer((req, res) => {
+  const route = url(req.url).pathname;
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+
+  if (req.method === 'GET') {
+    if (route === '/') {
+
+      res.setHeader('Content-Type', 'text/plain');
+      res.end()
+
+      }
+    }
+    else {
+     res.end(404);
+   }
+
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}/`);
+
 });
