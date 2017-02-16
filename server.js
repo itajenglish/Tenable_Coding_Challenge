@@ -5,19 +5,21 @@ const PORT = 3000;
 const server = http.createServer((req, res) => {
   const route = url(req.url).pathname;
   res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Content-Type', 'application/json');
 
-  if (req.method === 'GET') {
-    if (route === '/') {
+  if (req.method === 'POST') {
+    if (route === '/login') {
 
       res.setHeader('Content-Type', 'text/plain');
-      res.end()
+      res.on('data', (payload) => {
+         console.log(`Data: ${payloaad}`);
+         res.end()
+       });
 
-      }
     }
-    else {
-     res.end(404);
-   }
+  } else {
+    res.end(404);
+  }
 
 });
 
