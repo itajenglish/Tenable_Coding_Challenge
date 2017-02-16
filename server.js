@@ -10,11 +10,19 @@ const server = http.createServer((req, res) => {
   if (req.method === 'POST') {
     if (route === '/login') {
 
-      res.setHeader('Content-Type', 'text/plain');
-      res.on('data', (payload) => {
-         console.log(`Data: ${payloaad}`);
-         res.end()
-       });
+      console.log(`HEADERS: ${JSON.stringify(req.headers)}`);
+
+       req.on('data', (userInfo) => {
+          console.log(userInfo.toString())
+       })
+
+       req.on('end', () => {
+           res.writeHead(200, {'Content-Type': 'text/html'})
+           res.end('Data received.')
+       })
+       .on('error', (err) => {
+          console.log(`Got error: ${err.message}`);
+});
 
     }
   } else {
